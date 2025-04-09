@@ -2,16 +2,14 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from './LoginPage.ts';
 import { ActivitylogPage } from './ActivitylogPage.ts'
 import { DashboardPage } from './DashboardPage.ts'
-import { userData } from './userData.js';
-
-
+const userData = require('./userData.js');
 
 test('GID-100: Cymulate login and extract top 3 Attack IDs', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const activitylogPage = new ActivitylogPage(page);
     const dashboardPage = new DashboardPage(page);
     await loginPage.navigate();
-    await loginPage.login(userData.ValidUser.username, userData.ValidUser.passwords);
+    await loginPage.login(userData.validUser.username, userData.validUser.password);
     await dashboardPage.verifySidebarApearence();
     await activitylogPage.navigateActivitylog();
     await activitylogPage.filterAdvanced();
@@ -43,7 +41,6 @@ test('GID-100: Cymulate login and extract top 3 Attack IDs', async ({ page }) =>
     } else {
         console.log('No attackID values found in the response.');
     }
-
 
 });
 
